@@ -2,102 +2,108 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="container">
+      <div className="progress-bar">
+        <div className="progress-step active">
+          <div className="step-circle">1</div>
+          <div className="step-text">Question 1</div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="progress-step">
+          <div className="step-circle">2</div>
+          <div className="step-text">Question 2</div>
+        </div>
+        <div className="progress-step">
+          <div className="step-circle">3</div>
+          <div className="step-text">Question 3</div>
+        </div>
+        <div className="progress-step">
+          <div className="step-circle">4</div>
+          <div className="step-text">Question 4</div>
+        </div>
+        <div className="progress-step">
+          <div className="step-circle">5</div>
+          <div className="step-text">Contact Info</div>
+        </div>
+      </div>
+
+      <div className="form-container">
+        <h2>Please answer all questions</h2>
+        <form>
+          <div className="question-section" id="q1">
+            <h3>What is your preferred design style?</h3>
+            <div className="radio-group">
+              <input type="radio" id="modern" name="style" required />
+              <label htmlFor="modern">Modern</label>
+              
+              <input type="radio" id="traditional" name="style" />
+              <label htmlFor="traditional">Traditional</label>
+              
+              <input type="radio" id="contemporary" name="style" />
+              <label htmlFor="contemporary">Contemporary</label>
+            </div>
+          </div>
+
+          <div className="question-section" id="q2">
+            <h3>What is your budget range?</h3>
+            <div className="radio-group">
+              <input type="radio" id="budget1" name="budget" required />
+              <label htmlFor="budget1">$1000-$5000</label>
+              
+              <input type="radio" id="budget2" name="budget" />
+              <label htmlFor="budget2">$5000-$10000</label>
+              
+              <input type="radio" id="budget3" name="budget" />
+              <label htmlFor="budget3">$10000+</label>
+            </div>
+          </div>
+
+          <div className="question-section" id="q3">
+            <h3>What is your timeline?</h3>
+            <div className="radio-group">
+              <input type="radio" id="time1" name="timeline" required />
+              <label htmlFor="time1">1-3 months</label>
+              
+              <input type="radio" id="time2" name="timeline" />
+              <label htmlFor="time2">3-6 months</label>
+              
+              <input type="radio" id="time3" name="timeline" />
+              <label htmlFor="time3">6+ months</label>
+            </div>
+          </div>
+
+          <div className="question-section" id="q4">
+            <h3>Which rooms need renovation?</h3>
+            <div className="checkbox-group">
+              <input type="checkbox" id="living" name="rooms" />
+              <label htmlFor="living">Living Room</label>
+              
+              <input type="checkbox" id="bedroom" name="rooms" />
+              <label htmlFor="bedroom">Bedroom</label>
+              
+              <input type="checkbox" id="kitchen" name="rooms" />
+              <label htmlFor="kitchen">Kitchen</label>
+            </div>
+          </div>
+
+          <div className="question-section" id="q5">
+            <h3>Your Contact Information</h3>
+            <input type="text" placeholder="Name" required />
+            <input type="email" placeholder="Email" required />
+            <div className="phone-input">
+              <select className="country-code">
+                <option value="+1">+1</option>
+                <option value="+91">+91</option>
+              </select>
+              <input type="tel" placeholder="Phone number" required />
+            </div>
+          </div>
+
+          <div className="button-group">
+            <button type="button" className="back-btn">BACK</button>
+            <button type="submit" className="submit-btn">NEXT</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
