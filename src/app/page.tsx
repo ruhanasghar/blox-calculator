@@ -1,109 +1,213 @@
+'use client';
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [otherSize, setOtherSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+
+  const handleNext = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedSize(e.target.value);
+    if (e.target.value !== 'other') {
+      setOtherSize('');
+    }
+  };
+
+  const progressWidth = ((currentStep - 1) / 4) * 100;
+
   return (
-    <div className="container">
-      <div className="progress-bar">
-        <div className="progress-step active">
-          <div className="step-circle">1</div>
-          <div className="step-text">Question 1</div>
-        </div>
-        <div className="progress-step">
-          <div className="step-circle">2</div>
-          <div className="step-text">Question 2</div>
-        </div>
-        <div className="progress-step">
-          <div className="step-circle">3</div>
-          <div className="step-text">Question 3</div>
-        </div>
-        <div className="progress-step">
-          <div className="step-circle">4</div>
-          <div className="step-text">Question 4</div>
-        </div>
-        <div className="progress-step">
-          <div className="step-circle">5</div>
-          <div className="step-text">Contact Info</div>
+    <>
+      <div className="top-banner">
+        <div className="banner-content">
+          <div className="company-logo">BLOX</div>
+          <div className="progress-bar">
+            {[1, 2, 3, 4, 5].map((step) => (
+              <div key={step} className={`progress-step ${step === currentStep ? 'active' : ''} ${step < currentStep ? 'completed' : ''}`}>
+                <div className="step-circle">{step}</div>
+                <div className="step-text">
+                  {step === 1 && 'Property Type'}
+                  {step === 2 && 'Property Size'}
+                  {step === 3 && 'Basement'}
+                  {step === 4 && 'Package Type'}
+                  {step === 5 && 'Contact Info'}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="form-container">
-        <h2>Please answer all questions</h2>
-        <form>
-          <div className="question-section" id="q1">
-            <h3>What is your preferred design style?</h3>
-            <div className="radio-group">
-              <input type="radio" id="modern" name="style" required />
-              <label htmlFor="modern">Modern</label>
-              
-              <input type="radio" id="traditional" name="style" />
-              <label htmlFor="traditional">Traditional</label>
-              
-              <input type="radio" id="contemporary" name="style" />
-              <label htmlFor="contemporary">Contemporary</label>
+      <div className="main-wrapper">
+        <div className="form-container">
+          {/* <h2>Please answer all questions</h2> */}
+          <form onSubmit={handleNext}>
+            <div className={`question-section ${currentStep === 1 ? 'visible' : ''}`}>
+              <h3>Please specify your Property type?</h3>
+              <div className="radio-group">
+                <label className="radio-option" htmlFor="residential">
+                  <input type="radio" id="residential" name="propertyType" required={currentStep === 1} />
+                  <span>Residential</span>
+                </label>
+                
+                <label className="radio-option" htmlFor="commercial">
+                  <input type="radio" id="commercial" name="propertyType" />
+                  <span>Commercial</span>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div className="question-section" id="q2">
-            <h3>What is your budget range?</h3>
-            <div className="radio-group">
-              <input type="radio" id="budget1" name="budget" required />
-              <label htmlFor="budget1">$1000-$5000</label>
-              
-              <input type="radio" id="budget2" name="budget" />
-              <label htmlFor="budget2">$5000-$10000</label>
-              
-              <input type="radio" id="budget3" name="budget" />
-              <label htmlFor="budget3">$10000+</label>
+            <div className={`question-section ${currentStep === 2 ? 'visible' : ''}`}>
+              <h3>What is the size of your Property?</h3>
+              <div className="radio-group">
+                <label className="radio-option" htmlFor="10marla">
+                  <input 
+                    type="radio" 
+                    id="10marla" 
+                    name="propertySize" 
+                    value="10marla"
+                    onChange={handleSizeChange}
+                    required={currentStep === 2} 
+                  />
+                  <span>10 Marla</span>
+                </label>
+                
+                <label className="radio-option" htmlFor="1kanal">
+                  <input 
+                    type="radio" 
+                    id="1kanal" 
+                    name="propertySize" 
+                    value="1kanal"
+                    onChange={handleSizeChange}
+                  />
+                  <span>1 Kanal</span>
+                </label>
+                
+                <label className="radio-option" htmlFor="2kanal">
+                  <input 
+                    type="radio" 
+                    id="2kanal" 
+                    name="propertySize" 
+                    value="2kanal"
+                    onChange={handleSizeChange}
+                  />
+                  <span>2 Kanal</span>
+                </label>
+                
+                <label className="radio-option" htmlFor="other">
+                  <input 
+                    type="radio" 
+                    id="other" 
+                    name="propertySize" 
+                    value="other"
+                    onChange={handleSizeChange}
+                  />
+                  <span>Other</span>
+                </label>
+                
+                {selectedSize === 'other' && currentStep === 2 && (
+                  <div className="other-size-input">
+                    <input 
+                      type="number" 
+                      placeholder="Please specify size in Marlas" 
+                      value={otherSize}
+                      onChange={(e) => setOtherSize(e.target.value)}
+                      className="size-input"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="question-section" id="q3">
-            <h3>What is your timeline?</h3>
-            <div className="radio-group">
-              <input type="radio" id="time1" name="timeline" required />
-              <label htmlFor="time1">1-3 months</label>
-              
-              <input type="radio" id="time2" name="timeline" />
-              <label htmlFor="time2">3-6 months</label>
-              
-              <input type="radio" id="time3" name="timeline" />
-              <label htmlFor="time3">6+ months</label>
+            <div className={`question-section ${currentStep === 3 ? 'visible' : ''}`}>
+              <h3>Does your Property have basement?</h3>
+              <div className="radio-group">
+                <label className="radio-option" htmlFor="yes">
+                  <input type="radio" id="yes" name="hasBasement" required={currentStep === 3} />
+                  <span>Yes</span>
+                </label>
+                
+                <label className="radio-option" htmlFor="no">
+                  <input type="radio" id="no" name="hasBasement" />
+                  <span>No</span>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div className="question-section" id="q4">
-            <h3>Which rooms need renovation?</h3>
-            <div className="checkbox-group">
-              <input type="checkbox" id="living" name="rooms" />
-              <label htmlFor="living">Living Room</label>
-              
-              <input type="checkbox" id="bedroom" name="rooms" />
-              <label htmlFor="bedroom">Bedroom</label>
-              
-              <input type="checkbox" id="kitchen" name="rooms" />
-              <label htmlFor="kitchen">Kitchen</label>
+            <div className={`question-section ${currentStep === 4 ? 'visible' : ''}`}>
+              <h3>What is the type of services you are looking for?</h3>
+              <div className="radio-group">
+                <label className="radio-option service-card" htmlFor="architecture">
+                  <input type="radio" id="architecture" name="serviceType" required={currentStep === 4} />
+                  <div>
+                    <h4>Architecture services</h4>
+                    <p>Complete architectural design and planning</p>
+                  </div>
+                </label>
+                
+                <label className="radio-option service-card" htmlFor="interior">
+                  <input type="radio" id="interior" name="serviceType" />
+                  <div>
+                    <h4>Interior Design Services</h4>
+                    <p>Full interior design and decoration</p>
+                  </div>
+                </label>
+                
+                <label className="radio-option service-card" htmlFor="both">
+                  <input type="radio" id="both" name="serviceType" />
+                  <div>
+                    <h4>Architecture plus interior</h4>
+                    <p>Complete end-to-end design solution</p>
+                  </div>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div className="question-section" id="q5">
-            <h3>Your Contact Information</h3>
-            <input type="text" placeholder="Name" required />
-            <input type="email" placeholder="Email" required />
-            <div className="phone-input">
-              <select className="country-code">
-                <option value="+1">+1</option>
-                <option value="+91">+91</option>
-              </select>
-              <input type="tel" placeholder="Phone number" required />
+            <div className={`question-section ${currentStep === 5 ? 'visible' : ''}`}>
+              <h3>Your Contact Information</h3>
+              <input type="text" placeholder="Full Name" required={currentStep === 5} />
+              <input type="email" placeholder="Email" required={currentStep === 5} />
+              <div className="phone-input">
+                <select className="country-code">
+                  <option value="+92">🇵🇰 +92</option>
+                </select>
+                <input type="tel" placeholder="Phone number" required={currentStep === 5} />
+              </div>
+              
+              <div className="terms">
+                <p>By submitting this form, you agree to the <a href="#">privacy policy</a> & <a href="#">terms and conditions</a></p>
+                <p>This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply.</p>
+              </div>
             </div>
-          </div>
 
-          <div className="button-group">
-            <button type="button" className="back-btn">BACK</button>
-            <button type="submit" className="submit-btn">NEXT</button>
-          </div>
-        </form>
+            <div className="button-group">
+              <button 
+                type="button" 
+                className={`back-btn ${currentStep === 1 ? 'invisible' : ''}`}
+                onClick={handleBack}
+              >
+                BACK
+              </button>
+              <button type="submit" className="submit-btn">
+                {currentStep === 5 ? 'SUBMIT' : 'NEXT'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
